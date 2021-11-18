@@ -1,0 +1,9 @@
+.slider {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: visible;
+  white-space: nowrap;
+  position: relative;
+  padding-top: var(--slider-py);
+  padding-bottom: var(--slider-py);
+}

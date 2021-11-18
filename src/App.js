@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Layout from "./components/Layout";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Favorite from "./pages/Favorite/Favorite";
 
 function App() {
+  const [isModalOpen, setModalOpen] = useState({
+    isOpen: false,
+    scrollTop: 0,
+  });
+  const [modalDetail, setModalDetail] = useState({ id: "", type: "" });
+
+  const [favoriteList, setFavoriteList] = useState({});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout
+        isModalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+        modalDetail={modalDetail}
+        handleModalDetail={setModalDetail}
+        handleFavorite={setFavoriteList}
+        favoriteList={favoriteList}
+      >
+        <Switch>
+          <Route path="/my-list">
+            <Favorite
+              handleModalOpen={setModalOpen}
+              isModalOpen={isModalOpen.isOpen}
+              handleModalDetail={setModalDetail}
+              handleFavorite={setFavoriteList}
+              favoriteList={favoriteList}
+            />
+          </Route>
+          <Route path="/">
+            <Home
+              handleModalOpen={setModalOpen}
+              isModalOpen={isModalOpen.isOpen}
+              handleModalDetail={setModalDetail}
+              handleFavorite={setFavoriteList}
+              favoriteList={favoriteList}
+            ></Home>
+          </Route>
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
